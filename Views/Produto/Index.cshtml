@@ -1,44 +1,48 @@
 ﻿@{
-	ViewData["Title"] = "Produtos";
+    ViewData["Title"] = "Produtos";
 }
 
 @model List<SistemaVenda.Entidades.Produto>;
 
-<h2>Produtos</h2>
+<h2 class="mb-3 text-primary">Produtos</h2>
 <hr />
 
-<table class="table-bordered">
-	<thead>
-		<tr>
-			<th>Código</th>
-			<th>Descrição</th>
-			<th>Quantidade</th>
-			<th>Valor</th>
-			<th>Categoria</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-			<tr onclick="Editar(@item.Codigo)" style="cursor: pointer;">
-				<td>@item.Codigo</td>
-				<td>@item.Descricao</td>
-				<td>@item.Quantidade</td>
-				<td>@item.Valor</td>
-				<td>@item.CodigoCategoria</td>
-			</tr>
-		}
-	</tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered shadow">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-center">Código</th>
+                <th>Descrição</th>
+                <th class="text-center">Quantidade</th>
+                <th class="text-center">Valor</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr onclick="Editar(@item.Codigo)" style="cursor: pointer;">
+                    <td class="text-center fw-bold">@item.Codigo</td>
+                    <td>@item.Descricao</td>
+                    <td class="text-center">@item.Quantidade</td>
+                    <td class="text-center">@item.Valor.ToString("C")</td>
+                    <td>@item.Categoria.Descricao</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 <br />
-<button type="button" class="btn btn-block btn-primary" onclick="Cadastrar()">Cadastrar Produto</button>
+
+<button type="button" class="btn btn-primary btn-lg shadow rounded" onclick="Cadastrar()">Cadastrar Produto</button>
 
 <script>
-	function Cadastrar(){
-		window.location = window.origin + "\\Produto\\Cadastro";
-	}
+    function Cadastrar(){
+        window.location = window.origin + "\\Produto\\Cadastro";
+    }
 
-	function Editar(Codigo){
-		window.location = window.origin + "\\Produto\\Cadastro\\" + Codigo;
-	}
+    function Editar(Codigo){
+        window.location = window.origin + "\\Produto\\Cadastro\\" + Codigo;
+    }
 </script>

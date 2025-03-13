@@ -19,7 +19,7 @@ namespace SistemaVenda.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Produto> lista = mContext.Produto.ToList();
+            IEnumerable<Produto> lista = mContext.Produto.Include(x => x.Categoria).ToList();
             mContext.Dispose();
             return View(lista);
         }
