@@ -12,7 +12,7 @@
 <hr />
 
 <form asp-controller="Cliente" asp-action="Cadastro" method="post">
-	<input type="hidden" asp-form="Codigo" value="@Model.Codigo">
+	<input type="hidden" asp-for="Codigo" value="@Model.Codigo">
 	<div class="form-group">
 		<div class="col-4">
 			<label>Nome</label>
