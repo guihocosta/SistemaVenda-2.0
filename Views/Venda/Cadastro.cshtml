@@ -8,10 +8,10 @@
 	var disabled = (Model.Codigo == null) ? "disabled" : string.Empty;
 }
 
-<h2>Produto</h2>
+<h2>Venda</h2>
 <hr />
 
-<form asp-controller="Produto" asp-action="Cadastro" method="post">
+<form asp-controller="Venda" asp-action="Cadastro" method="post">
 	<input type="hidden" asp-for="Codigo" value="@Model.Codigo">
 	<div class="form-group">
 		<div class="col-4">
@@ -44,7 +44,52 @@
 			<label>Preço Unitário</label>
 			<input id="txtPrecoUnitario" type="number" class="form-control" disabled />
 		</div>
+
+		<div class="col-md-2">
+			<label>Quantidade</label>
+			<input id="txtQtd" type="number" onchange="CalcularSubTotal()" class="form-control"/>
+		</div>
+
+		<div class="col-md-2">
+			<label>Sub-Total</label>
+			<input id="txtSubTotal" type="number" class="form-control" disabled />
+		</div>
+
+		<div class="col-md-2">
+			<br />
+			<button type="button" class="btn btn-info" onclick="AddProduto()">Adicionar</button>
+			<br />
+		</div>
 		
+
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-12">
+			<table class="table table-bordered">
+				<thead>
+					<tr style="background-color:gray">
+						<th>Produto</th>
+						<th>Preço Unitário</th>
+						<th>Quantidade</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody id="gridProdutos"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label>Total</label>
+		<div class="col-md-3">
+			<input id="txtTotal" asp-for="Total" type="text" value="@Model.Total" class="form-control" />
+			<span asp-validation-for="Total" class="text-danger"></span>
+			
+
+		</div>
+
+		<textarea asp-for="JsonProdutos" id="txtJsonProdutos" class="col"></textarea>
 
 	</div>
 	<br />
@@ -60,9 +105,65 @@
 
 <script>
 
+	var Items = new Object();
+	Items.Produtos = new Array();
+	var gridProdutos = document.getElementById("gridProdutos");
+
+
+
+
 	function BuscarPrecoProduto(){
-		var codigoProduto = document.getElementById('dropdownProduto');
-		alert(codigoProduto.value);
+		var codigoProduto = document.getElementById('dropdownProduto').value;
+		var url = `/LerValorProduto/${codigoProduto}`;
+
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == XMLHttpRequest.DONE){
+				document.getElementById("txtPrecoUnitario").value = xhr.responseText;
+			}
+		}
+		xhr.open('GET', url, false);
+		xhr.send(null);
+	}
+
+	function CalcularSubTotal(){
+		var PrecoUnitario = document.getElementById("txtPrecoUnitario").value;
+		var SubTotal = PrecoUnitario * document.getElementById("txtQtd").value;
+		document.getElementById("txtSubTotal").value = SubTotal;
+	}
+
+	function AddProduto(){
+		var CodigoProduto = document.getElementById("dropdownProduto");
+		var Qtd = document.getElementById("txtQtd").value;
+		var ValorUnitario = document.getElementById("txtPrecoUnitario").value;
+		var SubTotal = document.getElementById("txtSubTotal").value;
+
+		Items.Produtos.push({
+			"CodigoProduto": CodigoProduto.value,
+			"Quantidade": Qtd,
+			"ValorUnitario": ValorUnitario,
+			"ValorTotal": SubTotal
+		});
+
+		document.getElementById("txtJsonProdutos").value = JSON.stringify(Items.Produtos);
+
+		var linhaGrid = 
+		"<tr id='" + CodigoProduto.value + "'>" +
+		"<td>" + CodigoProduto.options[CodigoProduto.selectedIndex].textContent + "</td>" +
+		"<td>" + ValorUnitario + "</td>" +
+		"<td>" + Qtd + "</td>" +
+		"<td> R$" + SubTotal + "</td>" +
+		"</tr>";
+
+		gridProdutos.innerHTML += linhaGrid;
+
+		var total = Number(document.getElementById("txtTotal").value.toString().replace(",", ".")) + Number(SubTotal);
+		document.getElementById("txtTotal").value = total;
+		document.getElementById("txtQtd").value = "";
+		document.getElementById("txtSubTotal").value = "";
+		document.getElementById("txtPrecoUnitario").value = "";
+		document.getElementById("dropdownProduto").selectedIndex = -1;
+
 	}
 
 	function Novo(){

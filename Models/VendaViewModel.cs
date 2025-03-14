@@ -13,8 +13,8 @@ namespace SistemaVenda.Models
         [Required(ErrorMessage = "Informe o Cliente!")]
         public int? CodigoCliente { get; set; } // Por ser 1 : N
 
-        public IEnumerable<SelectListItem> ListaClientes { get; set; }
-        public IEnumerable<SelectListItem> ListaProdutos { get; set; }
+        public IEnumerable<SelectListItem>? ListaClientes { get; set; }
+        public IEnumerable<SelectListItem>? ListaProdutos { get; set; }
 
         public string JsonProdutos { get; set; }
 
