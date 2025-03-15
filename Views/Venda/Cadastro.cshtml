@@ -89,7 +89,7 @@
 
 		</div>
 
-		<textarea asp-for="JsonProdutos" id="txtJsonProdutos" class="col"></textarea>
+		<textarea asp-for="JsonProdutos" id="txtJsonProdutos" class="col" style="display:none"></textarea>
 
 	</div>
 	<br />
@@ -111,6 +111,9 @@
 
 
 
+	function fixaDuasCasasDecimais(num){
+		return parseFloat(Math.round(num*100) / 100).toFixed(2);
+	}
 
 	function BuscarPrecoProduto(){
 		var codigoProduto = document.getElementById('dropdownProduto').value;
@@ -129,7 +132,7 @@
 	function CalcularSubTotal(){
 		var PrecoUnitario = document.getElementById("txtPrecoUnitario").value;
 		var SubTotal = PrecoUnitario * document.getElementById("txtQtd").value;
-		document.getElementById("txtSubTotal").value = SubTotal;
+		document.getElementById("txtSubTotal").value = fixaDuasCasasDecimais(SubTotal);
 	}
 
 	function AddProduto(){
@@ -152,12 +155,14 @@
 		"<td>" + CodigoProduto.options[CodigoProduto.selectedIndex].textContent + "</td>" +
 		"<td>" + ValorUnitario + "</td>" +
 		"<td>" + Qtd + "</td>" +
-		"<td> R$" + SubTotal + "</td>" +
+		"<td> R$ " + SubTotal + "</td>" +
 		"</tr>";
 
 		gridProdutos.innerHTML += linhaGrid;
 
 		var total = Number(document.getElementById("txtTotal").value.toString().replace(",", ".")) + Number(SubTotal);
+		document.getElementById("txtTotal").value = fixaDuasCasasDecimais(total).replace(".", ",");
+
 		document.getElementById("txtTotal").value = total;
 		document.getElementById("txtQtd").value = "";
 		document.getElementById("txtSubTotal").value = "";
