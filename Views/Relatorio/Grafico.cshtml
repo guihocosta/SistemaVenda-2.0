@@ -1,24 +1,24 @@
 ﻿@{
-    ViewData["Title"] = "Relatório";
+    ViewData["Title"] = "Gráfico";
 }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<h2 class="mb-3 text-primary">Total de Vendas por Produto</h2>
+<hr />
+<div>
+    <canvas id="myChart"></canvas>
+</div>
 
-
-<canvas id="myChart"></canvas>
-
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
-      type: 'bar',
+      type: 'pie',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [@Html.Raw(ViewBag.Labels)],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          data: [@Html.Raw(ViewBag.Valores)],
           borderWidth: 1
         }]
       },
