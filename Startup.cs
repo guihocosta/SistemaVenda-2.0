@@ -1,14 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SistemaVenda.DAL; 
+using SistemaVenda.DAL;
+using Microsoft.Extensions.Configuration;
 
 namespace SistemaVenda
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        // Adicione o construtor para injetar a configuração
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configuração do DbContext com a connection string
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer("Server=.;Database=Estoque;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true"));
+                options.UseSqlServer(Configuration.GetConnectionString("MyStock")));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
@@ -19,8 +29,12 @@ namespace SistemaVenda
         {
             if (!env.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
+            }
+            else
+            {
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseSession();
@@ -28,7 +42,7 @@ namespace SistemaVenda
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -37,5 +51,4 @@ namespace SistemaVenda
             });
         }
     }
-
 }
