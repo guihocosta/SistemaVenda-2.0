@@ -20,10 +20,12 @@
         <!-- Login Form -->
         <form asp-controller="Login" asp-action="Index" method="Post">
             <input asp-for="Email" type="text" id="login" class="fadeIn second" placeholder="Email">
-            <span asp-validation-for="Email" class="text-danger"></span>
+            <span asp-validation-for="Email" style="color:red"></span>
             <input asp-for="Senha" type="password" id="password" class="fadeIn third" placeholder="Senha">
-            <span asp-validation-for="Senha" class="text-danger"></span>
+            <span asp-validation-for="Senha" style="color:red"></span>
             <input type="submit" class="fadeIn fourth" value="Entrar">
+            <br />
+            <span style="color:red">@ViewData["ErroLogin"]</span>
         </form>
 
         <!-- Remind Passowrd -->
