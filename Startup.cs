@@ -20,7 +20,7 @@ namespace SistemaVenda
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MyStock")));
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
             services.AddSession();
             services.AddControllersWithViews();
         }
