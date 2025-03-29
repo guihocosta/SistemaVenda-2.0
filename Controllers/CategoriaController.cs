@@ -10,12 +10,11 @@ namespace SistemaVenda.Controllers
 {
     public class CategoriaController : Controller
     {
-        readonly ApplicationDbContext mContext;
         readonly IServicoAplicacaoCategoria ServicoAplicacaoCategoria;
 
         public CategoriaController(IServicoAplicacaoCategoria servicoAplicacaoCategoria)
         {
-            ServicoAplicacaoCategoria = ServicoAplicacaoCategoria;
+            ServicoAplicacaoCategoria = servicoAplicacaoCategoria;
         }
 
         public IActionResult Index()
@@ -27,12 +26,11 @@ namespace SistemaVenda.Controllers
         public IActionResult Cadastro(int? id)
         {
             CategoriaViewModel viewModel = new CategoriaViewModel();
-            if (id != null)
+            if(id != null)
             {
-                var entidade = mContext.Categoria.Where(x => x.Codigo == id).FirstOrDefault();
-                viewModel.Codigo = entidade.Codigo;
-                viewModel.Descricao = entidade.Descricao;
+                viewModel = ServicoAplicacaoCategoria.CarregarRegistro((int)id);
             }
+            
             return View(viewModel);
         }
 
@@ -41,23 +39,7 @@ namespace SistemaVenda.Controllers
         {
             if (ModelState.IsValid)
             {
-                Categoria objCategoria = new Categoria()
-                {
-                    Codigo = entidade.Codigo,
-                    Descricao = entidade.Descricao
-                };
-
-                if (entidade.Codigo == null)
-                {
-                    mContext.Categoria.Add(objCategoria);
-                }
-                else
-                {
-                    mContext.Entry(objCategoria).State = EntityState.Modified;
-                }
-
-                mContext.SaveChanges();
-
+                ServicoAplicacaoCategoria.Cadastrar(entidade);
             }
             else
             {
@@ -70,10 +52,7 @@ namespace SistemaVenda.Controllers
         [HttpGet]
         public IActionResult Excluir(int id)
         {
-            var ent = new Categoria() { Codigo = id };
-            mContext.Attach(ent);
-            mContext.Remove(ent);
-            mContext.SaveChanges();
+            ServicoAplicacaoCategoria.Excluir(id);
             return RedirectToAction("Index");
         }
 

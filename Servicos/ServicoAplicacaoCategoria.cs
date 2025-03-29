@@ -1,5 +1,6 @@
 ﻿using Aplicacao.Servico.Interfaces;
 using Dominio.Interfaces;
+using SistemaVenda.Dominio.Entidades;
 using SistemaVenda.Models;
 
 namespace Aplicacao.Servico
@@ -11,6 +12,34 @@ namespace Aplicacao.Servico
         { 
             ServicoCategoria = servicoCategoria;
         }
+
+        public void Cadastrar(CategoriaViewModel categoria)
+        {
+            Categoria cat = new Categoria()
+            {
+                Codigo = categoria.Codigo,
+                Descricao = categoria.Descricao
+            };
+
+            ServicoCategoria.Cadastrar(cat);
+        }
+
+        public CategoriaViewModel CarregarRegistro(int codigoCategoria)
+        {
+            var registro = ServicoCategoria.CarregarRegistro(codigoCategoria);
+            CategoriaViewModel categoria = new CategoriaViewModel()
+            {
+                Codigo = registro.Codigo,
+                Descricao = registro.Descricao
+            };
+            return categoria;
+        }
+
+        public void Excluir(int id)
+        {
+            ServicoCategoria.Excluir(id);
+        }
+
         public IEnumerable<CategoriaViewModel> Listagem()
         {
             var lista = ServicoCategoria.Listagem();

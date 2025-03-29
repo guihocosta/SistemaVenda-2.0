@@ -23,8 +23,8 @@ namespace SistemaVenda
         public void ConfigureServices(IServiceCollection services)
         {
             // Configuração do DbContext com a connection string
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("MyStock")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MyStock")));
 
             services.AddDbContext<Repositorio.Contexto.ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MyStock")));

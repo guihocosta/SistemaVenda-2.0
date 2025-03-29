@@ -6,5 +6,9 @@ namespace Aplicacao.Servico.Interfaces
     {
         IEnumerable<CategoriaViewModel> Listagem();
 
+        CategoriaViewModel CarregarRegistro(int codigoCategoria);
+        void Cadastrar(CategoriaViewModel categoria);
+        void Excluir(int id);
+
     }
 }
