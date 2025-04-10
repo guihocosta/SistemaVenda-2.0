@@ -7,6 +7,7 @@ using Dominio.Interfaces;
 using Dominio.Servicos;
 using Dominio.Interfaces.Repositorio;
 using Repositorio.Entidades;
+using Aplicacao.Servicos.Interfaces;
 
 namespace SistemaVenda
 {
@@ -41,6 +42,10 @@ namespace SistemaVenda
 
             // Repositório
             services.AddScoped<IRepositorioCategoria, RepositorioCategoria>();
+
+            services.AddScoped<IServicoAplicacaoCliente, ServicoAplicacaoCliente>();
+            services.AddScoped<IServicoCliente, ServicoCliente>();
+            services.AddScoped<IRepositorioCliente, RepositorioCliente>();
 
         }
 

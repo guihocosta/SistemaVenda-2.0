@@ -9,3 +9,4 @@ C:\Guilherme\SistemaVenda\Dominio\obj\Debug\net8.0\Dominio.dll
 C:\Guilherme\SistemaVenda\Dominio\obj\Debug\net8.0\refint\Dominio.dll
 C:\Guilherme\SistemaVenda\Dominio\obj\Debug\net8.0\Dominio.pdb
 C:\Guilherme\SistemaVenda\Dominio\obj\Debug\net8.0\ref\Dominio.dll
+C:\Guilherme\SistemaVenda\Dominio\obj\Debug\net8.0\Dominio.sourcelink.json

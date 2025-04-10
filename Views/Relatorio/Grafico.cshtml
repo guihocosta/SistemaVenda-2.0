@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Gráfico";
+}
+
+<h2 class="mb-3 text-primary">Total de Vendas por Produto</h2>
+<hr />
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: [@Html.Raw(ViewBag.Labels)],
+        datasets: [{
+          data: [@Html.Raw(ViewBag.Valores)],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+</script>

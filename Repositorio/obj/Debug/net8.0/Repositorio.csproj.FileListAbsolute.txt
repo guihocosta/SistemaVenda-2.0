@@ -13,3 +13,4 @@ C:\Guilherme\SistemaVenda\Repositorio\obj\Debug\net8.0\Repositorio.dll
 C:\Guilherme\SistemaVenda\Repositorio\obj\Debug\net8.0\refint\Repositorio.dll
 C:\Guilherme\SistemaVenda\Repositorio\obj\Debug\net8.0\Repositorio.pdb
 C:\Guilherme\SistemaVenda\Repositorio\obj\Debug\net8.0\ref\Repositorio.dll
+C:\Guilherme\SistemaVenda\Repositorio\obj\Debug\net8.0\Repositorio.sourcelink.json

@@ -7,11 +7,7 @@ using SistemaVenda.Dominio.Entidades;
 
 namespace Dominio.Interfaces
 {
-    public interface IServicoCategoria
+    public interface IServicoCategoria : IServicoCRUD<Categoria>
     {
-        IEnumerable<Categoria> Listagem();
-        void Cadastrar(Categoria categoria);
-        Categoria CarregarRegistro(int id);
-        void Excluir(int id);
     }
 }
