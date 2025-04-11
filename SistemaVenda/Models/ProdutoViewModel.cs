@@ -20,7 +20,9 @@ namespace SistemaVenda.Models
         [Required(ErrorMessage = "Informe a Categoria Produto!")]
         public int? CodigoCategoria { get; set; }
 
+
         public IEnumerable<SelectListItem>? ListaCategorias { get; set; }
+        public string? DescricaoCategoria { get; set; }
 
     }
 }

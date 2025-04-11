@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Servicos\Venda\" />
     <Folder Include="Servicos\Usuario\" />
-    <Folder Include="Servicos\Produto\" />
   </ItemGroup>
 
 </Project>

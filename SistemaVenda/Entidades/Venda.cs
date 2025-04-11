@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Dominio.Entidades;
 
 namespace SistemaVenda.Entidades
 {
-    public class Venda
+    public class Venda : EntityBase
     {
-        [Key]
-        public int? Codigo { get; set; }
         public DateTime Data { get; set; }
         public decimal Total { get; set; }
 

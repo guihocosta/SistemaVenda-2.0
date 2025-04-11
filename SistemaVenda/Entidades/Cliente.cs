@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Dominio.Entidades;
 
 namespace SistemaVenda.Entidades
 {
-    public class Cliente
+    public class Cliente : EntityBase
     {
-        [Key]
-        public int? Codigo { get; set; }
         public string Nome { get; set; }
         public string CNPJ_CPF { get; set; }
         public string Email { get; set; }

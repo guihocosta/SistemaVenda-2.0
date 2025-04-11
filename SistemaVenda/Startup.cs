@@ -23,6 +23,7 @@ namespace SistemaVenda
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             // Configuração do DbContext com a connection string
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MyStock")));
@@ -36,16 +37,18 @@ namespace SistemaVenda
 
             //Serviço Aplicação
             services.AddScoped<IServicoAplicacaoCategoria, ServicoAplicacaoCategoria>();
+            services.AddScoped<IServicoAplicacaoCliente, ServicoAplicacaoCliente>();
+            services.AddScoped<IServicoAplicacaoProduto, ServicoAplicacaoProduto>();
 
             // Domínio
             services.AddScoped<IServicoCategoria, ServicoCategoria>();
+            services.AddScoped<IServicoCliente, ServicoCliente>();
+            services.AddScoped<IServicoProduto, ServicoProduto>();
 
             // Repositório
             services.AddScoped<IRepositorioCategoria, RepositorioCategoria>();
-
-            services.AddScoped<IServicoAplicacaoCliente, ServicoAplicacaoCliente>();
-            services.AddScoped<IServicoCliente, ServicoCliente>();
             services.AddScoped<IRepositorioCliente, RepositorioCliente>();
+            services.AddScoped<IRepositorioProduto, RepositorioProduto>();
 
         }
 
